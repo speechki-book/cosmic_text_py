@@ -33,7 +33,7 @@ impl Font {
             paths.iter().map(|p| Source::File(PathBuf::from_str(p).unwrap()))
         );
 
-        let metrics = cosmic_text::Metrics::new(size, size * 1.4);
+        let metrics = cosmic_text::Metrics::new(size, size * 1.8);
         let buffer = cosmic_text::Buffer::new(&mut system, metrics);
 
         Ok(Font { system, cache: cosmic_text::SwashCache::new(), buffer })

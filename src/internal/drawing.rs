@@ -17,8 +17,12 @@ pub fn draw_text_mut(
         Some(mut pixmap) => {
             let mut buffer = font.buffer.borrow_with(&mut font.system);
 
-            if buffer.size() != (width, height) {
-                buffer.set_size(width, height);
+            {
+                let (c_width, c_height) = buffer.size();
+
+                if (c_width - width).abs() > 0.1 || (c_height - height).abs() > 0.1 {
+                    buffer.set_size(width, height);
+                }
             }
 
             buffer.set_text(text, cosmic_text::Attrs::new(), cosmic_text::Shaping::Advanced);
@@ -67,8 +71,12 @@ pub fn draw_text_advance_mut(
         Some(mut pixmap) => {
             let mut buffer = font.buffer.borrow_with(&mut font.system);
 
-            if buffer.size() != (width, height) {
-                buffer.set_size(width, height);
+            {
+                let (c_width, c_height) = buffer.size();
+
+                if (c_width - width).abs() > 0.1 || (c_height - height).abs() > 0.1 {
+                    buffer.set_size(width, height);
+                }
             }
 
             buffer.set_rich_text(text, cosmic_text::Shaping::Advanced);
