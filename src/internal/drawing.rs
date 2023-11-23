@@ -35,16 +35,16 @@ pub fn draw_text_mut(
                     |x_i, y_i, w_i, h_i, color_i| {
                         let rect = tiny_skia::Rect::from_xywh(x_i as f32, y_i as f32, w_i as f32, h_i as f32).unwrap();
 
-                        let mut paint = tiny_skia::Paint::default();
-                        paint.set_color(
-                            tiny_skia::Color::from_rgba8(color_i.r().into(), color_i.g().into(), color_i.b().into(), color_i.a().into())
-                        );
+                        let paint = tiny_skia::Paint {
+                            shader: tiny_skia::Shader::SolidColor(
+                                tiny_skia::Color::from_rgba8(color_i.r(), color_i.g(), color_i.b(), color_i.a())
+                            ),
+                            ..tiny_skia::Paint::default()
+                        };
 
                         pixmap.fill_rect(rect, &paint, tiny_skia::Transform::from_translate(x, y), None);
                     }
                 );
-
-                buffer.set_redraw(false);
             }
 
             Ok(())
@@ -71,7 +71,7 @@ pub fn draw_text_advance_mut(
                 buffer.set_size(width, height);
             }
 
-            buffer.set_rich_text(text, cosmic_text::Shaping::Basic);
+            buffer.set_rich_text(text, cosmic_text::Shaping::Advanced);
             buffer.shape_until(buffer.visible_lines());
 
             let background_rect = tiny_skia::Rect::from_xywh(x, y, width, height).unwrap();
@@ -84,16 +84,16 @@ pub fn draw_text_advance_mut(
                 |x_i, y_i, w_i, h_i, color_i| {
                     let rect = tiny_skia::Rect::from_xywh(x_i as f32, y_i as f32, w_i as f32, h_i as f32).unwrap();
 
-                    let mut paint = tiny_skia::Paint::default();
-                    paint.set_color(
-                        tiny_skia::Color::from_rgba8(color_i.r().into(), color_i.g().into(), color_i.b().into(), color_i.a().into())
-                    );
+                    let paint = tiny_skia::Paint {
+                        shader: tiny_skia::Shader::SolidColor(
+                            tiny_skia::Color::from_rgba8(color_i.r(), color_i.g(), color_i.b(), color_i.a())
+                        ),
+                        ..tiny_skia::Paint::default()
+                    };
 
                     pixmap.fill_rect(rect, &paint, tiny_skia::Transform::from_translate(x, y), None);
                 }
             );
-
-            buffer.set_redraw(false);
 
             Ok(())
         },

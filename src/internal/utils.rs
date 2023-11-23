@@ -6,7 +6,7 @@ pub fn point(x: f32, y: f32) -> Point {
 
 
 // does not copy the image
-pub fn pixmap_mut<'a>(image: &'a mut image::RgbaImage) -> Option<PixmapMut<'a>> {
+pub fn pixmap_mut(image: &mut image::RgbaImage) -> Option<PixmapMut<'_>> {
     let (w, h) = image.dimensions();
     PixmapMut::from_bytes(image, w, h)
 }

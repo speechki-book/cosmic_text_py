@@ -16,55 +16,53 @@ pub const WHITE: Paint<'static> = Paint {
 };
 
 pub fn rainbow(start: Point, end: Point) -> Paint<'static> {
-    let mut paint = Paint::default();
-    paint.anti_alias = true;
-    paint.shader = LinearGradient::new(
-        start,
-        end,
-        vec![
-            GradientStop::new(0.0, Color::from_rgba8(255, 0, 0, 255)),
-            GradientStop::new(0.15, Color::from_rgba8(255, 255, 0, 255)),
-            GradientStop::new(0.33, Color::from_rgba8(0, 255, 0, 255)),
-            GradientStop::new(0.49, Color::from_rgba8(0, 255, 255, 255)),
-            GradientStop::new(0.67, Color::from_rgba8(0, 0, 255, 255)),
-            GradientStop::new(0.84, Color::from_rgba8(255, 0, 255, 255)),
-            GradientStop::new(1.0, Color::from_rgba8(255, 0, 0, 255)),
-        ],
-        SpreadMode::Repeat,
-        Transform::default(),
-    )
-    .unwrap();
-    paint
+    Paint {
+        shader: LinearGradient::new(
+            start,
+            end,
+            vec![
+                GradientStop::new(0.0, Color::from_rgba8(255, 0, 0, 255)),
+                GradientStop::new(0.15, Color::from_rgba8(255, 255, 0, 255)),
+                GradientStop::new(0.33, Color::from_rgba8(0, 255, 0, 255)),
+                GradientStop::new(0.49, Color::from_rgba8(0, 255, 255, 255)),
+                GradientStop::new(0.67, Color::from_rgba8(0, 0, 255, 255)),
+                GradientStop::new(0.84, Color::from_rgba8(255, 0, 255, 255)),
+                GradientStop::new(1.0, Color::from_rgba8(255, 0, 0, 255)),
+            ],
+            SpreadMode::Repeat,
+            Transform::default(),
+        )
+        .unwrap(),
+        ..Paint::default()
+    }
 }
 
 pub fn ez_gradient(start: Point, end: Point, colors: Vec<Color>) -> Paint<'static> {
-    let mut paint = Paint::default();
-    paint.anti_alias = true;
-    paint.shader = LinearGradient::new(
-        start,
-        end,
-        colors
-            .iter()
-            .enumerate()
-            .map(|(i, c)| GradientStop::new(i as f32 / (colors.len() - 1) as f32, *c))
-            .collect(),
-        SpreadMode::Repeat,
-        Transform::default(),
-    )
-    .unwrap();
-    paint
+    Paint {
+        shader: LinearGradient::new(
+            start,
+            end,
+            colors
+                .iter()
+                .enumerate()
+                .map(|(i, c)| GradientStop::new(i as f32 / (colors.len() - 1) as f32, *c))
+                .collect(),
+            SpreadMode::Repeat,
+            Transform::default(),
+        )
+        .unwrap(),
+        ..Paint::default()
+    }
 }
 
 pub fn paint_from_rgba_slice(slice: &[u8; 4]) -> Paint<'static> {
     let mut paint = Paint::default();
-    paint.anti_alias = true;
     paint.set_color_rgba8(slice[0], slice[1], slice[2], slice[3]);
     paint
 }
 
 pub fn paint_from_rgba(r: u8, g: u8, b: u8, a: u8) -> Paint<'static> {
     let mut paint = Paint::default();
-    paint.anti_alias = true;
     paint.set_color_rgba8(r, g, b, a);
     paint
 }
