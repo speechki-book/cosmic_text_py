@@ -17,8 +17,9 @@ pub struct Font {
 impl Font {
     #[new]
     fn new(
-        size: f32,
         path: String,
+        size: f32,
+        line_height: f32,
         fallbacks: Option<Vec<String>>,
     ) -> PyResult<Self> {
         let mut paths = vec![
@@ -33,7 +34,7 @@ impl Font {
             paths.iter().map(|p| Source::File(PathBuf::from_str(p).unwrap()))
         );
 
-        let metrics = cosmic_text::Metrics::new(size, size * 1.8);
+        let metrics = cosmic_text::Metrics::new(size, line_height);
         let buffer = cosmic_text::Buffer::new(&mut system, metrics);
 
         Ok(Font { system, cache: cosmic_text::SwashCache::new(), buffer })

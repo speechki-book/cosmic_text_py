@@ -59,12 +59,13 @@ class Canvas:
 
 
 class Font:
-    def __new__(self, size: float, path: str, fallbacks: list[str]=None) -> Font:
+    def __new__(self, path: str, size: float, line_height: float, fallbacks: list[str]=None) -> Font:
         """Create a new font.
 
         Args:
-            size (float): The font size
             path (str): The path to the font.
+            size (float): The font size
+            line_height (float): The line height
             fallbacks (list[str], optional): The fallback fonts. Defaults to None.
 
         Returns:
