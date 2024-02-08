@@ -5,7 +5,7 @@ build-backend = "maturin"
 [project]
 name = "cosmic_text_py"
 requires-python = ">=3.8"
-version = "0.1.6"
+version = "0.1.7"
 authors = [
     { name = "Kurbanov Bulat", email = "kurbanovbul@gmail.com" },
 ]
