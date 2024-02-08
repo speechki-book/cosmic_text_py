@@ -26,7 +26,7 @@ pub fn draw_text_mut(
             }
 
             buffer.set_text(text, cosmic_text::Attrs::new(), cosmic_text::Shaping::Advanced);
-            buffer.shape_until_scroll(true);
+            // buffer.shape_until_scroll(true);
 
             if buffer.redraw() {
                 let background_rect = tiny_skia::Rect::from_xywh(x, y, width, height).unwrap();
@@ -80,7 +80,7 @@ pub fn draw_text_advance_mut(
             }
 
             buffer.set_rich_text(text, Attrs::new(), cosmic_text::Shaping::Advanced);
-            buffer.shape_until_scroll(true);
+            // buffer.shape_until_scroll(true);
 
             let background_rect = tiny_skia::Rect::from_xywh(x, y, width, height).unwrap();
             let background_paint = tiny_skia::Paint::default();
